@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
           characters.forEach(addCharacterToBar);
         });
     }
+  
     function addCharacterToBar(character) {
       const characterDiv = document.createElement("div");
       characterDiv.textContent = character.name;
@@ -36,11 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
     voteForm.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const votesInput = document.getElementById("votes").value;
       const votesToAdd = parseInt(votesInput);
 
       if (!isNaN(votesToAdd)) {
-        
         const currentVotes = parseInt(characterVotes.textContent);
 
         const newVoteCount = currentVotes + votesToAdd;
@@ -52,13 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       voteForm.reset();
     });
-    // Update votes on the server
     function updateVotes(characterId, votes) {
-     
       fetch(`${API_URL}/${characterId}`, {
         method: "PATCH", 
         headers: {
-          "Content-Type": "application/json", /
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify({ votes }), 
       })
@@ -68,11 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("Updated votes:", updatedCharacter);
         })
         .catch((error) => {
-      
           console.error("Error updating votes:", error);
         });
     }
- 
     resetButton.addEventListener("click", () => {
       characterVotes.textContent = 0;
       const characterId = characterImage.dataset.id;
@@ -101,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       characterForm.reset();
     });
+  
     fetchCharacters();
   });
   
